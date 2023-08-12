@@ -1,0 +1,27 @@
+.signupForm{
+
+
+   padding: 30px;
+
+}
+
+body{
+
+   
+}
+
+.grid-item{
+
+
+    display: grid;
+    margin-bottom: 10px;
+    margin-right: 75%;
+    
+}
+
+.submit{
+
+    margin-right: 80%;
+    font-weight: bold;
+
+}

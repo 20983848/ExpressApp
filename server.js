@@ -1,9 +1,10 @@
 var express = require("express");
 var fs = require("fs");
+
 //var bodyParser = require("body-parser");
 
 var app = express();
-app.use(express.static("public"));
+app.use("/public",express.static(__dirname + "/public"));
 
 app.set("view engine", "ejs");
 
@@ -22,14 +23,37 @@ app.get("/",function(req,res){
 
 app.get("/signup", function(req,res){
 
+    res.render(__dirname + "/"+ "signup.ejs");
+})
+
+app.get("/aboutyou", function(req,res){
+
+    
+    fs.readFile("log.txt","utf8" ,function(err,file){
+
+        var obj = JSON.parse(file);
+        
+        console.log(`FILE:${file} `);
+        console.log(obj);
+        
+       res.render(__dirname + "/aboutyou.ejs", {obj});
+
+
+    });
+});
+
+
+app.get("/signupAction", function(req,res){
+
     var packet = {
-        name: req.query.name
+        name: req.query.name,
+        email: req.query.email
         
     }
 
   
    
-    fs.writeFile("log.txt", packet.name , function(err){
+    fs.writeFile("log.txt", `{"name" :"${packet.name}", "email" :"${packet.email}"}` , function(err){
 
         if(err) throw err;
         console.log("Saved");
@@ -38,6 +62,9 @@ app.get("/signup", function(req,res){
 
   
     console.log(packet.name);
+    console.log(packet.email);
+
+    
     
    
 });
